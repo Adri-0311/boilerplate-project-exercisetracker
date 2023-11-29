@@ -2,15 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const exerciseModel = require("../models/exercise.model");
 const userModel = require("../models/user.model");
-
-/***
- * Conversion date to string
- * @param   {Date} date
- * @return  {String}
- */
-const dateToString = (date) => {
-  return date.toDateString();
-};
+const dateToString = require("../utils/date-to-string");
 
 // POST add new exercise
 router.post("/:_id/exercises", async (req, res) => {
