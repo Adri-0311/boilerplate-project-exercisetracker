@@ -7,6 +7,7 @@ require("dotenv").config();
 const connectToDB = require("./db/connection");
 
 const userRoute = require("./routes/user");
+const exerciseRoute = require("./routes/exercise");
 
 app.use(cors());
 app.use(express.static("src/public"));
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoute);
+app.use("/api/users", exerciseRoute);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log(
