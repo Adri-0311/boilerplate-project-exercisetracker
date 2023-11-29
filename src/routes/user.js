@@ -1,9 +1,9 @@
-const { Router, response } = require("express");
+const { Router } = require("express");
 const router = Router();
 const userModel = require("../models/user.model");
 
 // POST add new user
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
   const { username } = req.body;
 
   try {
