@@ -13,6 +13,7 @@ const logsRoute = require("./routes/logs");
 app.use(cors());
 app.use(express.static("src/public"));
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 connectToDB();
@@ -21,9 +22,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.use("/api/users", userRoute, exerciseRoute, logsRoute);
-// app.use("/api/users", exerciseRoute);
-// app.use("/api/users", logsRoute);
+app.use("/api/users", [userRoute, exerciseRoute, logsRoute]);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log(

@@ -2,10 +2,26 @@ const { Router } = require("express");
 const router = Router();
 const exerciseModel = require("../models/exercise.model");
 const userModel = require("../models/user.model");
-const dateToString = require("../utils/date-to-string");
+
+/***
+ * Conversion date to string
+ * @param   {Date} date
+ * @return  {String}
+ */
+const dateToString = (date) => {
+  if (!date) {
+    return new Date().toDateString();
+  }
+  return new Date(date).toDateString();
+};
 
 // POST add new exercise
 router.post("/:_id/exercises", async (req, res) => {
+  // Format the date param
+  req.body.date = req.body.date
+    ? dateToString(req.body.date)
+    : dateToString(""); //return current date
+
   try {
     const [dataExercise, dataUser] = await Promise.all([
       new exerciseModel({ ...req.body, user: req.params._id }).save(),
@@ -20,7 +36,7 @@ router.post("/:_id/exercises", async (req, res) => {
       username,
       description,
       duration,
-      date: dateToString(date),
+      date,
       ...req.params,
     });
   } catch (err) {
